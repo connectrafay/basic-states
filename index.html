@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org">
+<head>
+    <title>iWeb New</title>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.12/angular.min.js"> </script>
+    <script type="text/javascript" src="http://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+
+
+
+</head>
+
+
+
+<!-- index.html -->
+<body ng-app="myApp">
+    <div ui-view></div>
+    <!-- We'll also add some navigation: -->
+    <a ui-sref="state1">State 1</a>
+    <a ui-sref="state2">State 2</a>
+</body>
+
+</html>
+
+<script>
+var myApp = angular.module('myApp', ['ui.router']);
+myApp.config(function($stateProvider, $urlRouterProvider) {
+  //
+  // For any unmatched url, redirect to /state1
+  $urlRouterProvider.otherwise("/state1");
+  //
+  // Now set up the states
+  $stateProvider
+    .state('state1', {
+      url: "/state1",
+      templateUrl: "partials/state1.html",
+	  controller: function($scope) {console.log('controller state1.html');}
+    })
+    .state('state1.list', {
+      url: "/list",
+      templateUrl: "partials/state1.list.html",
+      controller: function($scope) {
+	  console.log('controller state1.list.html');
+        $scope.items = ["A", "List", "Of", "Items"];
+      }
+    })
+    .state('state2', {
+      url: "/state2",
+      templateUrl: "partials/state2.html",
+	  controller: function($scope) {console.log('controller state2.html');}
+
+    })
+    .state('state2.list', {
+      url: "/list",
+        templateUrl: "partials/state2.list.html",
+        controller: function($scope) {
+		console.log('controller state2.list.html');
+          $scope.things = ["A", "Set", "Of", "Things"];
+        }
+      })
+    });
+</script>
